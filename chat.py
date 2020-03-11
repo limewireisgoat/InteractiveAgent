@@ -10,8 +10,10 @@ import random
 import json
 import pickle
 
-importlib.import_module(Pattern)
-newData = True                                              #boolean to allow us to load/create models
+importlib.import_module(Pattern)                            #imports Pattern.py
+
+newData = True                                              #boolean to allow us to use new /load old data
+newModel = True                                             #boolean to allow to create new/ use existing models
 
 dictionary = []                                             #array that holds all the words in the JSON file
 labels = []                                                 #array that holds all of our tags
@@ -79,10 +81,11 @@ def readNewData():
         training = numpy.array(training)
         output = numpy.array(output)
 
-
+#method to load the existing model
 def loadExistingModel():
     model.load('model.tflearn')
 
+#method to create a new model
 def createNewModel():
     tensorflow.reset_default_graph()
 
@@ -97,7 +100,8 @@ def createNewModel():
     model.fit(training, output, n_epoch=1000, batch_size=8, show_metric=True)
     model.save("model.tflearn")
 
-def bag_of_dictionary(s, dictionary):
+#method to get the tag that corresponds to the user input
+def getTag(s):
     bag = [0 for _ in range(len(dictionary))]
 
     s_dictionary = nltk.word_tokenize(s)
@@ -116,7 +120,7 @@ def chat():
     while True:
         user = input("You: ")
 
-        results = model.predict([bag_of_dictionary(user, dictionary)])
+        results = model.predict([getTag(user)])
         results_index = numpy.argmax(results)
         tag = labels[results_index]
 
@@ -129,21 +133,33 @@ def chat():
         if tag == "Goodbye"
             break
 
-#main method
-def main():
+#method to know if you want to make changes
+def InputAndModel():
     print("Use existing data?")
-    newData = input()
+    wantNewData = input()
 
-    if newData == 'yes':
+    if wantNewData == 'yes':
         newData = False
+
+    print("Make new Model?")
+    wantNewModel = input()
+
+    if wantNewModel == 'no':
+        newModel = False
 
     if newData:        
         loadNewData()
         createNewModel()
     else:
         loadExistingData()
-        loadExistingModel()
-    
+        if newModel:
+            createNewModel()
+        else:
+            loadExistingModel()
+
+#main method
+def main():
+    InputAndModel()
     chat()
 
 if __name__ == '__main__':
