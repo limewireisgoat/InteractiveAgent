@@ -38,6 +38,7 @@ def readNewData():
     def readData():
     for intent in data["intents"]:
         
+        #hold the intent tag
         index = intent["tag"]
 
         for pattern in intent["patterns"]:
@@ -113,11 +114,9 @@ def bag_of_dictionary(s, dictionary):
 def chat():
     print("Start talking with the bot (type quit to stop)!")
     while True:
-        inp = input("You: ")
-        if inp.lower() == "quit":
-            break
+        user = input("You: ")
 
-        results = model.predict([bag_of_dictionary(inp, dictionary)])
+        results = model.predict([bag_of_dictionary(user, dictionary)])
         results_index = numpy.argmax(results)
         tag = labels[results_index]
 
@@ -125,11 +124,20 @@ def chat():
             if tg['tag'] == tag:
                 responses = tg['responses']
 
-        print(random.choice(responses))
+        print("Mahmoud: " + random.choice(responses))
+
+        if tag == "Goodbye"
+            break
 
 #main method
 def main():
-    if newData:
+    print("Use existing data?")
+    newData = input()
+
+    if newData == 'yes':
+        newData = False
+
+    if newData:        
         loadNewData()
         createNewModel()
     else:
@@ -137,7 +145,6 @@ def main():
         loadExistingModel()
     
     chat()
-    print("Goodbye!!!")
 
 if __name__ == '__main__':
     main()
