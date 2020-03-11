@@ -1,6 +1,7 @@
 # Mahmoud the Interactive Conversational Agent
 
-## Purpose: Mahmoud is your friend who, conveniently, can hold a conversation of at least 30 turns.
+## Purpose
+Mahmoud is your friend who, conveniently, can hold a conversation of at least 30 turns.
 
 ## Class Organization
 Breakdown of the classes:
