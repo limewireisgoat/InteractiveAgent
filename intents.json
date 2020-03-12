@@ -161,7 +161,31 @@
 			"patterns": ["Don't Leave", "I'm confused", "I'm lost", "", "I feel overwhelmed"],
 			"responses": ["Don't worry", "Stress is temporary", "Take some time to practice self care", "Reach out to your friends", "Take a deep breath", "Inhale the positives, exhale the negatives"],
 			"context_set": ""
-        }
+        },
+	{
+		"tag": "conspiracies",
+		"patterns": ["Do you know any conspiracies?", "Who built the Pyramids?", "Egyptians built the Pyramids"],
+		"responses": ["9/11 was an inside job", "The end is coming", "Aliens have been here and you know it", "The Pyramids were build by aliens"],
+		"context_set": ""
+	},
+		{
+			"tag": "Thank you",
+			"patterns": ["Thank you"],
+			"responses": ["What is your job?", "What are your hobbies?", "What is your favorite movie?", "Do you know any conspiracies?],
+			"context_set": ""
+		},
+	{
+		"tag": "good",
+		"patterns": ["Good"],
+		"responses": ["How are you feeling?", "Keep it up", "Always room for improvement!"],
+		"context_set": ""
+	},
+	{
+		"tag": "sad",
+		"patterns": ["I am sad", "I'm not feeling well"],
+		"responses": ["Hope you feel better"],
+		"context_set": ""
+	}
 
 	]
 }
