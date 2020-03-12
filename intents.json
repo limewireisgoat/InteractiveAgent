@@ -171,7 +171,7 @@
 		{
 			"tag": "Thank you",
 			"patterns": ["Thank you"],
-			"responses": ["What is your job?", "What are your hobbies?", "What is your favorite movie?", "Do you know any conspiracies?],
+			"responses": ["What is your job?", "What are your hobbies?", "What is your favorite movie?", "Do you know any conspiracies?"],
 			"context_set": ""
 		},
 	{
