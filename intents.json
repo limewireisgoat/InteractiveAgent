@@ -185,6 +185,12 @@
 		"patterns": ["I am sad", "I'm not feeling well"],
 		"responses": ["Hope you feel better"],
 		"context_set": ""
+	},
+	{
+		"tag": "fillers",
+		"patterns": ["ok"],
+		"responses": ["Tell me something interesting.", "Are you bored?"],
+		"context_set": ""
 	}
 
 	]
