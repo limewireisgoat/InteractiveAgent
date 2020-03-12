@@ -101,7 +101,7 @@ def createNewModel():
     model.save("model.tflearn")
 
 #method to get the tag that corresponds to the user input
-def getTag(s):
+def fitInput(s):
     bag = [0 for _ in range(len(dictionary))]
 
     s_dictionary = nltk.word_tokenize(s)
@@ -120,13 +120,13 @@ def chat():
     while True:
         user = input("You: ")
 
-        results = model.predict([getTag(user)])
-        results_index = numpy.argmax(results)
-        tag = labels[results_index]
+        results = model.predict([fitInput(user)])                #fit the user input into the format that the model can read and predict the result
+        results_index = numpy.argmax(results)                   #index the tag with the highest probability
+        result_tag = labels[results_index]                      #return that tag
 
-        for tg in data["intents"]:
-            if tg['tag'] == tag:
-                responses = tg['responses']
+        for intent in data["intents"]:
+            if intent['tag'] == result_tag:
+                responses = intent['responses']
 
         print("Mahmoud: " + random.choice(responses))
 
