@@ -13,7 +13,9 @@ intents.json: This is a file that holds all of the data that the agent is traine
 ## How to Compile and Run the Code
 Make sure that you have Python 3.6.x installed. No other Python version will compile the code.  
 Run the chat.py file  
-or type python3.6 chat.py after cd into the directory
+or type python3.6 chat.py after cd into the directory  
+
+make sure to use the instruction pip install <package_name> to install the libraries
 
 ## Built With
 Python - Programming language  
