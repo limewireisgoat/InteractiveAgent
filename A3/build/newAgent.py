@@ -3,6 +3,42 @@ from setup import numpy as np
 from setup import tflearn as tfl
 from setup import tensorflow as tf
 from setup import pickle as p
+from setup import Pattern as pat
+
+#get the STEMMED synonyms of a word and store them in an array
+def getSynonyms(word):
+    synonyms = []                                                                                       #create an array to hold the synonyms
+
+    for syn in wn.synsets(word):                                                                        #get all the synonym sets of a word
+        for l in syn.lemmas():                                                                          #get the lemmas of every synonym set
+            synonyms.append(l.name())                                                                   #append the lemma to the synonym array
+    
+    synonyms = [stemmer.stem(syn.lower()) for syn in synonyms]                                          #normalize them
+
+    return synonyms
+
+#tokenize and clean a string. Lower case it, remove punctuation, remove non-alphanumeric tokens, and remove stop-words
+def cleanWord(word):
+    word = word.lower()                                                                                 #lowercase word
+    word = word.translate(punc_table)                                                                   #remove punctuation
+    word = stemmer.stem(word)                                                                           #stem the word
+
+    return word
+
+def cleanPOSList(string):
+    tokenized_words = nltk.word_tokenize(string)                                                        #tokenize the string
+    poslist = nltk.pos_tag(tokenized_words)                                                             #get the parts of speech of the pattern
+    cleanPOS = []
+    for i,tup in enumerate(poslist):
+        l = list(tup)
+        word = l[0]
+        word = cleanWord(word)                                                                          #clean the word from punctuation, make it lower case, and stem it
+        if (word not in stop_words and word.isalpha()):                                                  #if it is not a stop word and is alphanumeric, only then use it
+            l[0] = word
+            tup = tuple(l)
+            cleanPOS.append(tup)
+
+    return pos_tokenized_words
 
 #method that reads the new data and stores it in our new variables
 def readNewData():
@@ -14,7 +50,7 @@ def readNewData():
     with open("data.pickle", "wb") as f:
         p.dump((s.dictionary, s.labels, s.training, s.output), f)
 
-#function to read the intents.json file and store its elements into appropriate dictionaries
+#function to read the intents.json file and store its elements into appropriate dictionaries 
 def readData():
 
     for intent in s.data["intents"]:
@@ -23,13 +59,15 @@ def readData():
         index = intent["tag"]
 
         for pattern in intent["patterns"]:
-            tokenized_words = s.nltk.word_tokenize(pattern)
-            tokenized_words = [s.stemmer.stem(word.lower()) for word in tokenized_words if word != "?"]
-            s.dictionary.extend(tokenized_words)
-            s.patterns.append(s.Pattern(tokenized_words, index))
+            
+            pos_stemmed_words = cleanPOSList(pattern)                                                   #make and clean the pos list for this pattern
+            dictionary.extend(pos_stemmed_words)                                                        #extend our dictionary with our stemmed words and their pos
+            patterns.append(Pattern(pos_stemmed_words, index))                                          #append our list of patterns with this pattern object
 
-        if intent["tag"] not in s.labels:
-            s.labels.append(intent["tag"])
+        if intent["tag"] not in labels:                                                                 #if we have not studied this tag, add it to our list
+            labels.append(intent["tag"])
+    
+    return dictionary, labels, patterns
        
 #function to clean the data
 def cleanData():
@@ -47,11 +85,11 @@ def prepareTrainingData():
     for Pattern in s.patterns:
         bag = []
 
-        pattern_words = str(Pattern.pattern)
+        pattern_pos_words = pat.pattern
 
-        for word in s.dictionary:
-            if word in pattern_words:
-                bag.append(1)
+        for dic_tup in s.dictionary:
+            if dic_tup in pattern_pos_words:
+                bag.apped(1)
             else:
                 bag.append(0)
 
@@ -63,7 +101,6 @@ def prepareTrainingData():
 
     s.training = np.array(training)
     s.output = np.array(output)
- 
 
 #method to create a new model
 def createNewModel():
