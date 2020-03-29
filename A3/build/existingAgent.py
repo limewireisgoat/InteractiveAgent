@@ -7,7 +7,10 @@ def loadExistingData():
 
 #method to load the existing model
 def loadExistingModel():
-    s.model = s.model.load('model.tflearn')
+    try:
+        s.model = s.model.load('model.tflearn')
+    except:
+        print("Error loading Model")
 
 def load():
     loadExistingData()
