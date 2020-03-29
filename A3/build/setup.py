@@ -13,6 +13,7 @@ import random
 import json
 import pickle
 import string
+import warnings
 
 #define the list of stopwords
 stop_words = set(sw.words('english'))
@@ -31,7 +32,7 @@ labels = []                                                                     
 patterns = []                                                                                           #array to hold the pattern objects
 training = []                                                                                           #training data for neural network
 output = []                                                                                             #output data of neural network
-model = 1
+model = []                                                                                              #model object that represents our neural network
 
-with open("C:/Users/sabry/Documents/310/Project/A3/data/intents.json") as file:                         #open the JSON file and load the data into "data"
+with open("C:/Users/sabry/Documents/310/Project/updateA3/data/intents.json") as file:                   #open the JSON file and load the data into "data"
     data = json.load(file)

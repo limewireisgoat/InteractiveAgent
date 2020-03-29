@@ -1,12 +1,13 @@
-import setup as s
-from setup import numpy as np
-from setup import random as r
+from setup import *
+from pos import *
+from synonyms import *
+import printvariables as p
 
 #method to fit the user's input into a format that the neural network can understand
 def fitInput(userString):
     bag = [0 for _ in range(len(dictionary))]                                                           #create a bag of 0s that is the size of the neural network's input 
 
-    user_dictionary = cleanPOSList(userString)                                                          #make a stemmed pos list from the user's input
+    user_dictionary = getPOSList(userString)                                                          #make a stemmed pos list from the user's input
 
     #loop over all our words
     for i, word in enumerate(dictionary):                                                               #traverse through our dictionary of words
@@ -32,7 +33,7 @@ def fitInput(userString):
             for j, se in enumerate(user_dictionary):                                                    #account for synonyms
                 synonyms = getSynonyms(se)
                 for synm in synonyms:
-                    if synm == word
+                    if synm == word:
                         bag[i] = 1
                         user_dictionary.pop(j)
                         break
@@ -56,24 +57,26 @@ def getResponse(results):
 
 #chatting method
 def chatWithAgent():
+    #print(model)
     print("Start talking with the bot (type goodbye to stop)!")
     while True:
         user = input("You: ")
+        p.printEverything()
 
         try:
-            results = s.model.predict([fitInput(user)])                                         #fit the user input into the format that the model can read and predict the result
+            results = model.predict([fitInput(user)])                                         #fit the user input into the format that the model can read and predict the result
             results_index = np.argmax(results)                                                  #index the tag with the highest probability
-            result_tag = s.labels[results_index]                                                #return that tag
+            result_tag = labels[results_index]                                                #return that tag
 
-            results = s.model.predict([fitInput(user)])                                         #fit the user input into the format that the model can read and predict the result
+            results = model.predict([fitInput(user)])                                         #fit the user input into the format that the model can read and predict the result
             result_tag = getResponse(results)                                                   #get the response tag that the model predicts
 
             #find the intent with the specified tag and get the responses
-            for intent in s.data["intents"]:
+            for intent in data["intents"]:
                 if intent['tag'] == result_tag:
                     responses = intent['responses']
 
-            print("Mahmoud: " + r.choice(responses))
+            print("Mahmoud: " + random.choice(responses))
 
             if result_tag == "goodbye":
                 break
