@@ -38,6 +38,39 @@ build/synonyms: code that generates the stemmed synonyms of a word.
 
 data/intents.json: This is a file that holds all of the data that the agent is trained on and the data that is used for responses.  
   
+## Features  
+
+Since the previous iteration, there have been lots of new features that have been implemented. Each features that will be mentioned below will include a rationale as to why it has been chosen and a snippet of the feature in action.  
+
+### Simple Gui  
+The user needs a cleaner interface to communicate with the chatbot.  
+<Snippet>
+
+### Extra topics  
+The interactive agent models a friend. There should be a lot to talk about. More topics have been added to the agent's reportoire as presented in the intents.json file.  
+<Snippet>  
+
+### Out-of-topic handler  
+The agent is bound to come accross a topic that it has not been trained on. For this reason, an "irrelevant" tag has been added to the agent's reportoire to respond to such input.  
+<Snippet>  
+
+### Spelling Mistake Recognition  
+The agent has been trained on data that has been stemmed using a Snowball stemmer. The Snowball stemmer has been chosen over the Porter and Lancaster stemmers because it has shown the best results in terms of training the agent and responding to the user. Reseach has also shown that it is regarded as the preferred algorithm as it is faster than Porter and less aggressive than Lancaster.  
+https://stackoverflow.com/questions/10554052/what-are-the-major-differences-and-benefits-of-porter-and-lancaster-stemming-alg  
+<Snippet>  
+
+### Synonym Recognition  
+The user may not use the exact words that the agent has been trained on. For this reason, synonym recognition has been added. If a word is not understood by the agent, then its synonym list will be generated, and if the word that the agent is trained on is found, then the agent can adjust the response accordingly.  
+<Snippet> 
+
+### POS tagging  
+The same word may be used in different contexts. The agent has been trained to understand the context of the word being inputted and accounting for that using POS tagging. So inputting the same word in a different context will generate a different response.  
+<Snippet> 
+
+### Sockets Conversation with x  
+Simulating a conversation with another agent can bring a good laugh to the spectator. What better way to do this, than to have 2 average chatbots talk to each other while you sit with your popcorn and watch the magic unfold.
+<Snippet> 
+
 
 ## How to Compile the code
 To generate this interactive agent, make sure that you have Python 3.6.x installed (Any Python 3.6 version). No other Python version will allow you to compile the code because the libraries used in this project only work with Python 3.6.  
