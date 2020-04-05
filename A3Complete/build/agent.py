@@ -62,7 +62,7 @@ def fitInput(userString):
 def getResponses(results):
     global isDone
     
-    if numpy.amax(results) < 0.60:                                                                      #if the maximum probability that a tag has is 70%, we will asusme that the user entered something that is off topic
+    if numpy.amax(results) < 0.70:                                                                      #if the maximum probability that a tag has is 70%, we will asusme that the user entered something that is off topic
         result_tag = 'irrelevant'   
     else:
         results_index = numpy.argmax(results)                                                           #index the tag with the highest probability
