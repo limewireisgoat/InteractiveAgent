@@ -1,5 +1,5 @@
-from nltk.stem.lancaster import LancasterStemmer
-stemmer = LancasterStemmer()
+from nltk.stem.snowball import SnowballStemmer
+stemmer = SnowballStemmer("english")
 
 import nltk
 import json

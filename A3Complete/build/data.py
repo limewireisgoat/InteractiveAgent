@@ -4,7 +4,7 @@ import numpy
 import config
 
 from pos import getPOSList
-from Pattern import Pattern as pat
+from pattern import Pattern as pat
 
 #method that reads the new data and stores it in our new variables
 def read():    
