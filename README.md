@@ -44,30 +44,33 @@ Since the previous iteration, there have been lots of new features that have bee
 
 ### Simple Gui  
 The user needs a cleaner interface to communicate with the chatbot.  
-<Snippet>
+![gui](https://user-images.githubusercontent.com/52863189/78506820-35ec4180-7731-11ea-97c0-7ec84e20d2bc.png)
+
 
 ### Extra topics  
 The interactive agent models a friend. There should be a lot to talk about. More topics have been added to the agent's reportoire as presented in the intents.json file.  
-<Snippet>  
+![extra topics](https://user-images.githubusercontent.com/52863189/78506903-ccb8fe00-7731-11ea-9547-6774fbe0710f.png)
 
 ### Out-of-topic handler  
 The agent is bound to come accross a topic that it has not been trained on. For this reason, an "irrelevant" tag has been added to the agent's reportoire to respond to such input.  
-<Snippet>  
+![out-of-topic](https://user-images.githubusercontent.com/52863189/78506968-333e1c00-7732-11ea-95b4-77d883e75990.png)
+ 
 
 ### Spelling Mistake Recognition  
 The agent has been trained on data that has been stemmed using a Snowball stemmer. The Snowball stemmer has been chosen over the Porter and Lancaster stemmers because it has shown the best results in terms of training the agent and responding to the user. Reseach has also shown that it is regarded as the preferred algorithm as it is faster than Porter and less aggressive than Lancaster.  
 https://stackoverflow.com/questions/10554052/what-are-the-major-differences-and-benefits-of-porter-and-lancaster-stemming-alg  
-<Snippet>  
+![spelling](https://user-images.githubusercontent.com/52863189/78507179-7baa0980-7733-11ea-8d09-336c778fa44f.png)
+ 
 
 ### Synonym Recognition  
 The user may not use the exact words that the agent has been trained on. For this reason, synonym recognition has been added. If a word is not understood by the agent, then its synonym list will be generated, and if the word that the agent is trained on is found, then the agent can adjust the response accordingly.  
-<Snippet> 
+![synonym](https://user-images.githubusercontent.com/52863189/78508892-152ae880-773f-11ea-90a0-b2e51588b1a5.png)
 
 ### POS tagging  
 The same word may be used in different contexts. The agent has been trained to understand the context of the word being inputted and accounting for that using POS tagging. So inputting the same word in a different context will generate a different response.  
-<Snippet> 
+![pos_tagging](https://user-images.githubusercontent.com/52863189/78508940-64711900-773f-11ea-95c5-8cd8d6aff635.png) 
 
-### Sockets Conversation with x  
+### Sockets Conversation with External Chatbot  
 Simulating a conversation with another agent can bring a good laugh to the spectator. What better way to do this, than to have 2 average chatbots talk to each other while you sit with your popcorn and watch the magic unfold.
 <Snippet> 
 
