@@ -2,7 +2,8 @@
 
 ## Built by  
 
-Ahmed Sabry  
+Ahmed Sabry
+Camila Jenkins
 ## Purpose
 Mahmoud is your friend who, conveniently, can hold a conversation of at least 30 turns. 
 
