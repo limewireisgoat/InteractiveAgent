@@ -9,6 +9,6 @@ def getSynonyms(word):
         for l in syn.lemmas():                                                                          #get the lemmas of every synonym set
             synonyms.append(l.name())                                                                   #append the lemma to the synonym array
     
-    synonyms = [syn.lower() for syn in synonyms]                                                        #convert everything to lower case
+    synonyms = list(set([syn.lower() for syn in synonyms]))                                                                            #convert to a set, then back to a list
 
     return synonyms

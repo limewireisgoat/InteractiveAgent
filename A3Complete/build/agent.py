@@ -1,3 +1,5 @@
+
+import nltk
 import numpy
 import random
 import config
@@ -10,9 +12,11 @@ isDone = False
 
 #method to fit the user's input into a format that the neural network can understand
 def fitInput(userString):
-    bag = [0 for _ in range(len(config.dictionary))]                                                           #create a bag of 0s that is the size of the neural network's input 
+    bag = [0 for _ in range(len(config.dictionary))]                                                           #create a bag of 0s that is the size of the neural network's input
 
-    user_dictionary = getPOSList(userString)                                                          #make a stemmed pos list from the user's input
+    tokenized_words = nltk.word_tokenize(userString)                                                        #tokenize the string 
+
+    tokenized_words, user_dictionary = getPOSList(tokenized_words)                                                          #make a stemmed pos list from the user's input
 
     #loop over all our words
     for i, word_postag in enumerate(config.dictionary):                                                               #traverse through our dictionary of words
@@ -24,8 +28,9 @@ def fitInput(userString):
                 if word_postag == userword_postag:                                                                          #if the word that the user provides is in our dictionary,
                     bag[i] = 1                                                                          #then put 1 to show that the word is present
                     user_dictionary.pop(j)                                                              #no need to check for this word ever again
+                    tokenized_words.pop(j)
                     break                                                                               #no need to check for the other words
-
+    
     #account for synonyms now
     for i, word_postag in enumerate(config.dictionary):
         if (len(user_dictionary) == 0 ):                                                                #if there are no more words left to study, end
@@ -35,11 +40,16 @@ def fitInput(userString):
             continue
 
         else:
-            for j, userword_postag in enumerate(user_dictionary):                                                    #account for synonyms
-                synonyms = getSynonyms(userword_postag[0])
+            for j, remainingword in enumerate(tokenized_words):                                                    #account for synonyms
+                synonyms = getSynonyms(remainingword)
+                synonyms = getPOSList(synonyms)[1]
+                
                 for synm in synonyms:
-                    if synm == word_postag[0]:
+                    tup = (synm[0], user_dictionary[j][1])
+                    #print(tup)
+                    if tup == word_postag:
                         bag[i] = 1
+                        tokenized_words.pop(j)
                         user_dictionary.pop(j)
                         break
                 if bag[i] == 1:
@@ -52,7 +62,7 @@ def fitInput(userString):
 def getResponses(results):
     global isDone
     
-    if numpy.amax(results) < 0.70:                                                                      #if the maximum probability that a tag has is 70%, we will asusme that the user entered something that is off topic
+    if numpy.amax(results) < 0.60:                                                                      #if the maximum probability that a tag has is 70%, we will asusme that the user entered something that is off topic
         result_tag = 'irrelevant'   
     else:
         results_index = numpy.argmax(results)                                                           #index the tag with the highest probability

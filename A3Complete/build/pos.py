@@ -9,17 +9,18 @@ def cleanWord(word):
     return word
 
 #function that gets the stemmed and pos tag for every word in a string
-def getPOSList(string):
-    tokenized_words = nltk.word_tokenize(string)                                                        #tokenize the string
+def getPOSList(tokenized_words):
     poslist = nltk.pos_tag(tokenized_words)                                                             #get the parts of speech of the pattern
     cleanPOSlist = []
     for tup in poslist:
         l = list(tup)
         word = l[0]
-        word = cleanWord(word)                                                                          #clean the word from punctuation, make it lower case, and stem it
-        if (word not in stop_words and word.isalpha()):                                                 #if it is not a stop word and is alphanumeric, only then use it
-            l[0] = word
+        cleanword = cleanWord(word)                                                                          #clean the word from punctuation, make it lower case, and stem it
+        if (cleanword not in stop_words and word.isalpha()):                                                 #if it is not a stop word and is alphanumeric, only then use it
+            l[0] = cleanword
             tup = tuple(l)
             cleanPOSlist.append(tup)
+        else:
+            tokenized_words.remove(word)
     
-    return cleanPOSlist
+    return tokenized_words, cleanPOSlist

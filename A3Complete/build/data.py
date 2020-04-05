@@ -2,6 +2,7 @@ import json
 import pickle
 import numpy
 import config
+import nltk
 
 from pos import getPOSList
 from pattern import Pattern as pat
@@ -27,8 +28,10 @@ def readData():
         index = intent["tag"]
 
         for pattern in intent["patterns"]:
+
+            pattern = nltk.word_tokenize(pattern)
             
-            pos_stemmed_words = getPOSList(pattern)                                                 #make and clean the pos list for this pattern
+            pattern, pos_stemmed_words = getPOSList(pattern)                                                 #make and clean the pos list for this pattern
             dictionary.extend(pos_stemmed_words)                                                    #extend our dictionary with our stemmed words and their pos
             patterns.append(pat(pos_stemmed_words, index))                                          #append our list of patterns with this pattern object
 
