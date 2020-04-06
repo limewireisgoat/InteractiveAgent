@@ -22,7 +22,5 @@ def getPOSList(tokenized_words):
             cleanPOSlist.append(tup)
         else:
             tokenized_words.remove(word)
-        if cleanword == '':
-            tokenized_words.remove(word)
     
     return tokenized_words, cleanPOSlist

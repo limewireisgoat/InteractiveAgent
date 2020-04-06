@@ -4,9 +4,7 @@ import numpy
 import config
 import nltk
 
-from element import createElements
 from pos import getPOSList
-from ner import getNER
 from pattern import Pattern as pat
 
 #method that reads the new data and stores it in our new variables
@@ -31,14 +29,11 @@ def readData():
 
         for pattern in intent["patterns"]:
 
-            nerlist = getNER(pattern)
-
             pattern = nltk.word_tokenize(pattern)
             
             pattern, pos_stemmed_words = getPOSList(pattern)                                                 #make and clean the pos list for this pattern
-            pos_ner_stemmed_words = createElements(pattern, pos_stemmed_words, nerlist)
-            dictionary.extend(pos_ner_stemmed_words)                                                    #extend our dictionary with our stemmed words and their pos
-            patterns.append(pat(pos_ner_stemmed_words, index))                                          #append our list of patterns with this pattern object
+            dictionary.extend(pos_stemmed_words)                                                    #extend our dictionary with our stemmed words and their pos
+            patterns.append(pat(pos_stemmed_words, index))                                          #append our list of patterns with this pattern object
 
         if intent["tag"] not in labels:                                                             #if we have not studied this tag, add it to our list
             labels.append(intent["tag"])
