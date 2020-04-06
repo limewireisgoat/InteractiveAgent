@@ -93,14 +93,19 @@ You will then need to install the required libraries for this project. These are
 6) numpy  
 7) random  
 8) pickle  
+9) spacy
 
 Ensure that you have all of these libraries installed first. If you do not have any of the libraies mentioned above, make sure to use this instruction to install the library:  
   
    pip install <package_name>
 
-You may also be ased to install wordnet as well. For this issue, run Python and type the following instructions:  
+You may also be asked to install wordnet and en_core_web_sm as well. For this issue, run Python and type the following instructions:  
 1) import nltk  
 2) nltk.download('wordnet') or just nltk.download()  
+
+AND  
+
+python -m spacy download en_core_web_sm
 
 Everything should workout from here.  
 
