@@ -24,6 +24,8 @@ We decided to split the structure in this format for 2 main reasons:
 ### Class breakdown: 
 build/project.py: The main method of the project.  
 
+build/gui.py: Main class that models our gui.  
+
 build/admin.py: This code asks the administrator (The person running the code) if they would like to build a new agent or use existing agent that has been previously generated. It also asks the administrator if they would like to see a conversation between Mahmoud and , another chatbot that has been created by another group in the COSC 310 class.  
 
 build/agent.py: This code uses the agent that was created to have a conversation with the user/x.  
@@ -39,6 +41,8 @@ build/neuralnet.py: Code that contains a method to initialize a neural net using
 build/pattern.py: A simple class that models a response that is read as training data into the agent.  
 
 build/pos.py: code that generates the filtered and stemmed parts of speech of a string.  
+
+build/ner.py: code that generates the stemmed, parts of speech, named entity recognition of a string.
 
 build/synonyms: code that generates the stemmed synonyms of a word.  
 
@@ -76,10 +80,9 @@ The user may not use the exact words that the agent has been trained on. For thi
 The same word may be used in different contexts. The agent has been trained to understand the context of the word being inputted and accounting for that using POS tagging. So inputting the same word in a different context will generate a different response.  
 ![pos_tagging](https://user-images.githubusercontent.com/52863189/78508940-64711900-773f-11ea-95c5-8cd8d6aff635.png) 
 
-### Sockets Conversation with External Chatbot  
-Simulating a conversation with another agent can bring a good laugh to the spectator. What better way to do this, than to have 2 average chatbots talk to each other while you sit with your popcorn and watch the magic unfold.
-<Snippet> 
-
+### Named Entity recognition  
+Another layer to provide more specific responses. The agent has been trained to account for different named entities in its context with Named entity recognition.  
+![ner](https://user-images.githubusercontent.com/52863189/78519471-58557d80-7778-11ea-8f2a-31732b4f2315.png)
 
 ## How to Compile the code
 To generate this interactive agent, make sure that you have Python 3.6.x installed (Any Python 3.6 version). No other Python version will allow you to compile the code because the libraries used in this project only work with Python 3.6.  
